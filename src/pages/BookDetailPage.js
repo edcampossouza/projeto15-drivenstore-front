@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Header from "../components/Header"
 import AppContext from "../context/AppContext"
+import { formataReais } from "../util/util"
 import { IoMdGlobe } from 'react-icons/io'
 import {BsCalendar3} from 'react-icons/bs'
 import {RxPerson} from 'react-icons/rx'
@@ -90,10 +91,9 @@ export default function BookDetailPage() {
                     </div>
                     <FootNotes>
                         <div>
-                            <p>Idioma</p>
-                            <IoMdGlobe />
-                            <span>Português</span>
-                            
+                            <span>R$ {book.price}</span>
+                            <input onChange={(e) => setQuantity(e.target.value)} type={"number"} />
+                            <button onClick={addToCart} >Adicionar ao carrinho</button>
                         </div>
                         <div>
                             <p>Data de publicação</p>

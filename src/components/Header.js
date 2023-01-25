@@ -7,7 +7,7 @@ import axios from "axios";
 import logo from '../assets/images/logo2.png'
 
 export default function Header() {
-    const { token, user } = useContext(AppContext)
+    const { token, user, cartItems } = useContext(AppContext)
     const [cart, setCart] = useState([])
     console.log(user)
 
@@ -33,7 +33,7 @@ export default function Header() {
 
     }, [])
 
-
+ 
 
 
     return (
@@ -52,9 +52,8 @@ export default function Header() {
 
                     <h2>{`Olá, ${user}`}</h2>
                 }
-                <span><AiOutlineShoppingCart /></span>
-
-                <p>{cart}</p>
+                <AiOutlineShoppingCart />
+                {cart}
 
             </nav>
 
@@ -76,30 +75,6 @@ const HeaderStyle = styled.div`
         nav {
             display: flex;
             gap: 10px;
-        }
-        img {
-            width: 200px;
-          
-        }
-        p {
-            margin-right: 200px;
-        }
-        h1 {
-            font-size: 40px;
-            margin-left: 200px;
-        }
-        @media (max-width: 715px) {
-            justify-content: space-around;
-            h1 {
-                margin-left: 0;
-            }
-            p {
-                margin-right: 0;
-            }
-            
-            h2 {
-                display: none;
-            }
         }
 `
 
