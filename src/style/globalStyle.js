@@ -28,6 +28,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;	
+	font-family: 'Source Sans Pro', sans-serif;
 }
 ol, ul {
 	list-style: none;

@@ -22,6 +22,10 @@ export default function HomePage() {
     return (
         <>
             <Header />
+            <TitleStyle>
+                <h1>Conheça nossos livros! <hr /></h1>
+            </TitleStyle>
+
             <BookPageContainer>
                 {books.map((book) =>
                     <BookContainer>
@@ -46,14 +50,27 @@ export default function HomePage() {
 }
 
 const BookPageContainer = styled.div`
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      justify-content: center;
-      justify-items: center;
-      align-items: center;
-      padding: 30px;
-    `
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+
+`
+
+const TitleStyle = styled.div`
+   // border-bottom: 1px solid #dfdddd;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    h1 {
+        font-size: 25px;
+        margin: 30px 0 30px 50px;
+        font-family: 'Libre Bodoni', sans-serif;
+        
+    }
+`
 
 
 const BookContainer = styled.div`
@@ -64,11 +81,12 @@ const BookContainer = styled.div`
     min-height:380px;
     align-items: center;
     position: relative;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+   
         img {
             width: 180px;
             height: 270px;
             border-radius:10px;
+            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
         }
        
 

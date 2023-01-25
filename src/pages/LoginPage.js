@@ -4,9 +4,10 @@ import { ThreeDots } from "react-loader-spinner"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import AppContext from "../context/AppContext"
+import {TbBooks} from 'react-icons/tb'
 
 export default function LoginPage() {
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const { setUser, setToken, setUserId } = useContext(AppContext)
     const [email, setEmail] = useState()
@@ -20,21 +21,23 @@ export default function LoginPage() {
             .then(res => {
                 setToken(res.data.token)
                 setUserId(res.data.userId)
-                setUser(res.data.name)
+                setUser(res.data.user)
+                console.log(res.data)
                 navigate("/")
-                
+
             })
             .catch(err => {
                 console.log(err)
             })
 
-            
+
     }
 
     return (
         <>
-            <MyWalletContainer  />
-            <RegisterForm onSubmit={login} >
+            <LoginForm onSubmit={login} >
+                <Title>Booskly</Title>
+               
                 <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder='E-mail' required />
                 <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Senha' required />
                 <button>{!loading ? 'Entrar' :
@@ -46,23 +49,24 @@ export default function LoginPage() {
                         wrapperStyle={{}}
                         wrapperClassName=""
                         visible={true} />}</button>
-                <p>Primeira vez? <Link to="/sign-up"><span>Cadastre-se!</span></Link> </p>
-            </RegisterForm>
+                     
+                <p>Primeira vez? <Link to="/sign-up"><a>Cadastre-se!</a></Link> </p>
+            </LoginForm>
         </>
     )
 }
 
-const MyWalletContainer = styled.img`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 95px;
-    margin-bottom: 28px;
-
+const Title = styled.h1`
+    font-family: 'Libre Bodoni', sans-serif;
+    font-size: 80px;
+    margin-bottom: 30px;
 `
 
-const RegisterForm = styled.form`
+
+const LoginForm = styled.form`
+    width: 100vw;
+    height: 100vh;
+    background-color: #e0edf4;
     display: flex;
     flex-direction: column;
     gap: 13px;
@@ -84,7 +88,7 @@ const RegisterForm = styled.form`
         button {
             width: 326px;
             height: 46px;
-            background-color: #A328D6;
+            background-color: #A9D9CA;
             border-radius: 5px;
             display: flex;
             justify-content: center;
@@ -95,20 +99,21 @@ const RegisterForm = styled.form`
             font-weight: 700;
             transition: 0.4s;
             &:hover {
-                background-color: #7c2c9f;
+                background-color: #8FB9AC;
             }
             
 
         }
         p {
             margin-top: 30px;
-            color: white;
-            span {
-                color: white;
+            a {
                 text-decoration: underline;
                 cursor: pointer;
                 font-size: 15px;
                 font-weight: 700;
+                  &:visited {
+                    color: #5a4b4b;
+                  }
             }
         }
 

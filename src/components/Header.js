@@ -4,12 +4,13 @@ import styled from "styled-components"
 import AppContext from "../context/AppContext"
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import axios from "axios";
-
+import logo from '../assets/images/logo2.png'
 
 export default function Header() {
-    const { token, userId } = useContext(AppContext)
+    const { token, user } = useContext(AppContext)
     const [cart, setCart] = useState([])
-    
+    console.log(user)
+
     useEffect(() => {
         if (token.length > 0) {
 
@@ -18,40 +19,42 @@ export default function Header() {
                     Authorization: `Bearer ${token}`
                 }
             }
-            console.log(userId)
-    
+
+
             axios.get(`${process.env.REACT_APP_API_URL}/cart`, config)
                 .then(res => {
-                    const cartQuantity = (res.data).reduce((s,a) => Number(s) + Number(a.quantity), 0 )
+                    const cartQuantity = (res.data).reduce((s, a) => Number(s) + Number(a.quantity), 0)
                     setCart(cartQuantity)
                     console.log(cartQuantity)
                 })
-    
+
         }
-    
+
 
     }, [])
 
- 
+
 
 
     return (
         <HeaderStyle>
-            <div>LOGO DA LOJA</div>
+
+            <h1>Booksly</h1>
             <nav>
                 {console.log(cart)}
-                {token.length <= 0 &&
+                {token.length <= 0 ?
                     <Buttons>
                         <Link to="/sign-in">
                             <button>Login</button>
                         </Link>
-                        <Link to="/sign-up">
-                            <button>Cadastro</button>
-                        </Link>
                     </Buttons>
+                    :
+
+                    <h2>{`Olá, ${user}`}</h2>
                 }
-                <AiOutlineShoppingCart />
-                {cart}
+                <span><AiOutlineShoppingCart /></span>
+
+                <p>{cart}</p>
 
             </nav>
 
@@ -64,20 +67,55 @@ const HeaderStyle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    min-height: 60px;
-    background-color: rebeccapurple;
+    min-height: 80px;
+    background-color: #e0edf4;
+    width: 100%;
+    
+    //border-bottom: 1px solid #dfdddd;
+    font-family: 'Libre Bodoni', sans-serif;
         nav {
             display: flex;
             gap: 10px;
         }
+        img {
+            width: 200px;
+          
+        }
+        p {
+            margin-right: 200px;
+        }
+        h1 {
+            font-size: 40px;
+            margin-left: 200px;
+        }
+        @media (max-width: 715px) {
+            justify-content: space-around;
+            h1 {
+                margin-left: 0;
+            }
+            p {
+                margin-right: 0;
+            }
+            
+            h2 {
+                display: none;
+            }
+        }
 `
 
 const Buttons = styled.div`
+    margin-right: 30px;
     display: flex;
-    gap: 10px;
+    gap: 30px;
     height: 20px;
     align-items: center;
     justify-content: center;
+        button {
+            background-color: #e0edf4;
+         
+           font-size:15px ;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
 `
