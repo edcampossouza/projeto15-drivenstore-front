@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 export default function Header() {
-    const { token, userId } = useContext(AppContext)
+    const { token, userId, cartItems } = useContext(AppContext)
     const [cart, setCart] = useState([])
     
     useEffect(() => {
@@ -32,8 +32,11 @@ export default function Header() {
 
     }, [])
 
- 
-
+    //atualiza o cartItems quando o usuario adiciona/remove algum item
+    useEffect(()=>{
+        const cartQuantity = cartItems.reduce((s,a) => Number(s) + Number(a.quantity), 0 )
+        setCart(cartQuantity)
+    },[cartItems])
 
     return (
         <HeaderStyle>
@@ -50,7 +53,9 @@ export default function Header() {
                         </Link>
                     </Buttons>
                 }
-                <AiOutlineShoppingCart />
+                <Link to="/cart">
+                    <AiOutlineShoppingCart />
+                </Link>
                 {cart}
 
             </nav>
@@ -71,6 +76,9 @@ const HeaderStyle = styled.div`
         nav {
             display: flex;
             gap: 10px;
+        }
+        a {
+            color: black
         }
 `
 
