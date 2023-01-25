@@ -34,7 +34,10 @@ export default function Header() {
     }, [])
 
  
-
+    useEffect(()=>{
+        const cartQuantity = cartItems.reduce((s,a) => Number(s) + Number(a.quantity), 0 )
+        setCart(cartQuantity)
+    },[cartItems])
 
     return (
         <HeaderStyle>
@@ -52,7 +55,9 @@ export default function Header() {
 
                     <h2>{`Olá, ${user}`}</h2>
                 }
-                <AiOutlineShoppingCart />
+                 <Link to="/cart">
+                    <AiOutlineShoppingCart />
+                </Link>
                 {cart}
 
             </nav>
