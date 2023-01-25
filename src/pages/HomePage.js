@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { BsCartPlus } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import Header from "../components/Header"
 
 export default function HomePage() {
     const [books, setBooks] = useState([])
@@ -18,28 +19,33 @@ export default function HomePage() {
     console.log(books)
 
 
-    return (<BookPageContainer>
-        {books.map((book) => 
-            <BookContainer>
-                <img  src={book.cover} />
-                <BookInfo>
-                    <h2>{book.title}</h2>
-                    <h3>{book.author}</h3>
-                    <div>
-                        <p>R$ {book.price}</p>
-                        <Link to={`/book-detail/${book._id}`} >
-                        <button>Add to cart <BsCartPlus /></button>
-                        </Link>
-                    </div>
-                </BookInfo>
-            </BookContainer>
-        )}
-    </BookPageContainer>
+    return (
+        <>
+            <Header />
+            <BookPageContainer>
+                {books.map((book) =>
+                    <BookContainer>
+                        <img src={book.cover} />
+                        <BookInfo>
+                            <h2>{book.title}</h2>
+                            <h3>{book.author}</h3>
+                            <div>
+                                <p>R$ {book.price}</p>
+                                <Link to={`/book-detail/${book._id}`} >
+                                    <button>Add to cart <BsCartPlus /></button>
+                                </Link>
+                            </div>
+                        </BookInfo>
+                    </BookContainer>
+                )}
+            </BookPageContainer>
+        </>
+
 
     )
 }
 
-    const BookPageContainer = styled.div`
+const BookPageContainer = styled.div`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 40px;
