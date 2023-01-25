@@ -4,6 +4,7 @@ import { BsCartPlus } from "react-icons/bs"
 import { Link, useParams } from "react-router-dom"
 import styled from "styled-components"
 import AppContext from "../context/AppContext"
+import { formataReais } from "../util/util"
 
 export default function BookDetailPage() {
     const { id } = useParams()
@@ -53,7 +54,7 @@ export default function BookDetailPage() {
                     {addedToCart[0] && <h1>{addedToCart[1]}</h1>}
                     {isAddingToCart ?
                         <div>
-                            <span>R$ {book.price}</span>
+                            <span>{formataReais(book.price)}</span>
                             <input onChange={(e) => setQuantity(e.target.value)} type={"number"} />
                             <button onClick={addToCart} >Adicionar ao carrinho</button>
                         </div>
