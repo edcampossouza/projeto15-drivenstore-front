@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;	
 	font-family: 'Source Sans Pro', sans-serif;
+	position: relative;
 }
 ol, ul {
 	list-style: none;
@@ -60,6 +61,11 @@ table {
 button {
 	cursor: pointer;
 	
+}
+a {
+	:visited {
+		color: black;
+	}
 }
 `
 

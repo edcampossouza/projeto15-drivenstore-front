@@ -2,14 +2,15 @@ import { useContext, useEffect, useInsertionEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import AppContext from "../context/AppContext"
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { BsHandbag } from 'react-icons/bs';
+import { BsChatSquare } from 'react-icons/bs'
 import axios from "axios";
 import logo from '../assets/images/logo2.png'
 
 export default function Header() {
     const { token, user, cartItems } = useContext(AppContext)
     const [cart, setCart] = useState([])
-    
+
 
     useEffect(() => {
         if (token.length > 0) {
@@ -33,37 +34,43 @@ export default function Header() {
 
     }, [])
 
-    useEffect(()=>{
-        const cartQuantity = cartItems.reduce((s,a) => Number(s) + Number(a.quantity), 0 )
+    useEffect(() => {
+        const cartQuantity = cartItems.reduce((s, a) => Number(s) + Number(a.quantity), 0)
         setCart(cartQuantity)
-    },[cartItems])
+    }, [cartItems])
 
- 
-    useEffect(()=>{
-        const cartQuantity = cartItems.reduce((s,a) => Number(s) + Number(a.quantity), 0 )
-        setCart(cartQuantity)
-    },[cartItems])
 
     return (
         <HeaderStyle>
-
-            <h1>Booksly</h1>
+            <Link to="/">
+                <h1>Booksly</h1>
+            </Link>
             <nav>
-                {console.log(cart)}
-                {token.length <= 0 ?
+                <Link to="/" >
+                <span>Home</span>
+                </Link>
+                <Link to="/books" >
+                <span>Livros</span>
+                </Link>
+                <span>Lançamentos</span>
+                <span>Mais vendidos</span>
+                {token.length <= 0 &&
                     <Buttons>
                         <Link to="/sign-in">
                             <button>Login</button>
                         </Link>
                     </Buttons>
-                    :
 
-                    <h2>{`Olá, ${user}`}</h2>
+
+                    // <h2>{`Olá, ${user}`}</h2>
                 }
-                 <Link to="/cart">
-                    <AiOutlineShoppingCart />
-                </Link>
-                {cart}
+               
+                    <Link to="/cart">
+                        <BsHandbag size="1.6em" />
+                    </Link>                    
+                    <p>{cart}</p>
+
+
 
             </nav>
 
@@ -77,15 +84,20 @@ const HeaderStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     min-height: 90px;
-    background-color: #e0edf4;
-    width: 100%;
-    
-    //border-bottom: 1px solid #dfdddd;
+    background-color: #9BA5BE;
+    width: 100%;    
+    border-bottom: 1px solid #dfdddd;
     font-family: 'Libre Bodoni', sans-serif;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+   
         nav {
             display: flex;
-            gap: 10px;
-            margin-right: 200px;
+            align-items: center;
+            gap: 30px;
+            
+            
         }
         img {
             width: 200px;
@@ -93,11 +105,24 @@ const HeaderStyle = styled.div`
         }
         p {
             margin-right: 200px;
+            font-size: 13px;
+            margin-left: -20px;
+           
         }
+        
+       
         h1 {
             font-size: 40px;
             margin-left: 200px;
         }
+        span {
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+                color: white;
+            }
+        }
+       
         @media (max-width: 715px) {
             justify-content: space-around;
             h1 {
@@ -124,10 +149,11 @@ const Buttons = styled.div`
     align-items: center;
     justify-content: center;
         button {
-            background-color: #e0edf4;
-           font-size:15px ;
+            background-color: #9BA5BE;
+            font-size:16px;          
             &:hover{
                 text-decoration: underline;
+                color: #e9e9e9;
             }
         }
 `

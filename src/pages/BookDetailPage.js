@@ -36,6 +36,7 @@ export default function BookDetailPage() {
     }
 
     function addToCart() {
+        if(token.length <= 0) return alert("Você precisa estar logado para adicionar o livro ao carrinho")
 
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
             .then(res => {
@@ -132,7 +133,9 @@ const BookContainer = styled.div`
   height: 80%;  
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  height: 100vh;
+  width: 100vw;
+  background-color: #e9e9e9;
          h1 {
                 font-size: 30px;
                 font-weight: 500;
@@ -148,7 +151,8 @@ const BookContainer = styled.div`
             }
             @media (max-width: 800px) {
                flex-direction: column;
-               margin-top: 10px;
+               margin-top: 90px;
+               height: 140vh;
               
             }
          
@@ -164,13 +168,13 @@ const AddToCart = styled.div`
                 height: 20px;
                 padding: 10px;
                 margin-left: -20px;
-                box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.3);
             }
             button {
                 width:300px;
                 height: 40px;
                 background-color: #A9D9CA;
-                box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.5);
                 &:hover {
                         background-color: #8FB9AC;
                     }
@@ -186,7 +190,13 @@ const BookImage = styled.div`
 
         img {
             width:350px ;
-            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.5);
+            @media (max-width: 800px) {
+             
+                margin-top: 20px;
+              
+            }
+            
         }
         @media (max-width: 800px) {
             margin-bottom: 10px;
@@ -220,6 +230,9 @@ const BookInfo = styled.div`
         @media (max-width: 800px) {
             margin-left: 0;
             width: 360px;
+            margin-top: 30px;
+           
+            
                
         }
 
@@ -254,7 +267,7 @@ const FinalButtons = styled.div`
                     width:300px;
                     height: 40px;
                     background-color: #A9D9CA;
-                    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.5);
                     &:hover {
                         background-color: #8FB9AC;
                     }

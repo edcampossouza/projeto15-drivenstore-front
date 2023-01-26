@@ -1,139 +1,92 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import styled from "styled-components"
-import { BsCartPlus } from "react-icons/bs"
 import { Link } from "react-router-dom"
+import styled from "styled-components"
+import table from '../assets/images/table.png'
 import Header from "../components/Header"
-import { formataReais } from "../util/util"
 
 export default function HomePage() {
-    const [books, setBooks] = useState([])
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/books`)
-            .then(res => {
-                setBooks(res.data)
-            })
-    }, [])
-
-
-
-    console.log(books)
-
-
     return (
         <>
             <Header />
-            <TitleStyle>
-                <h1>Conheça nossos livros! <hr /></h1>
-            </TitleStyle>
-
-            <BookPageContainer>
-                {books.map((book) =>
-                    <BookContainer>
-                        <img src={book.cover} />
-                        <BookInfo>
-                            <h2>{book.title}</h2>
-                            <h3>{book.author}</h3>
-                            <div>
-                                <p>{formataReais(book.price)}</p>
-                                <Link to={`/book-detail/${book._id}`} >
-                                    <button>Add to cart <BsCartPlus /></button>
-                                </Link>
-                            </div>
-                        </BookInfo>
-                    </BookContainer>
-                )}
-            </BookPageContainer>
+            <Home>
+                <div>
+                    <h1>Compre todos os melhores e mais populares livros aqui!</h1>
+                    <p><span>Booskly</span> é a escolha perfeita para encontrar os melhores títulos. Com uma ampla variedade de gêneros e preços acessíveis, é fácil encontrar o livro certo para você. A loja oferece entrega rápida e pagamento seguro, além de atendimento ao cliente excepcional. Com uma grande seleção de títulos, incluindo clássicos e lançamentos recentes, é fácil encontrar o livro perfeito</p>
+                    <Link to="/books" > 
+                    <button>Shop now!</button>
+                    </Link>
+                </div>
+                <img src={table} />
+            </Home>
         </>
-
 
     )
 }
 
-const BookPageContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-
-`
-
-const TitleStyle = styled.div`
-   // border-bottom: 1px solid #dfdddd;
+const Home = styled.div`
     display: flex;
-    justify-content: center;
-    align-content: center;
-    h1 {
-        font-size: 25px;
-        margin: 30px 0 30px 50px;
-        font-family: 'Libre Bodoni', sans-serif;
-        
-    }
-`
-
-
-const BookContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    width: 240px;
-    min-height:380px;
+    width: 100vw;
+    height: 100vh;
     align-items: center;
-    position: relative;
-   
+    justify-content: center;
+    background-color: #e9e9e9;
+        @media (max-width:1050px) {
+                        flex-direction: column-reverse;
+                        margin-top: 90px;
+                        
+                    }
+       @media (max-width:600px) {
+                   margin-top: 0;
+            }
+    
+        div {
+            margin-left: 20px;
+            width: 40%;
+            height: 45%;           
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: left;
+            @media (max-width:1100px) {
+                   width: 70%;
+                   height:60%;
+                   margin-bottom: 10px;
+                   margin-left: 0;
+                    
+                }
+                
+        }
+
         img {
-            width: 180px;
-            height: 270px;
-            border-radius:10px;
-            box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+            width: 700px;
+            height: 400px;
+            @media (max-width:1100px) {
+                    width: 600px;
+                    height: 400px;
+                    margin-top: 100px;
+                    
+            }
+            @media (max-width:600px) {
+                    width: 400px;
+                    height: 200px;
+                   
+                    
+            }
         }
-       
-
-`
-
-const BookInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-top: 10px;
-
-   
-    h2 {
-            font-size: 14px;
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-        h3 {
-            font-size: 12px;
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-        p {
-            color: #6383A7;
-            margin-left: 30px;
+        h1 {
+            font-size: 50px;
+            font-weight: bold;
+                 @media (max-width:1100px) {
+                   margin-top: 10px;
+                   font-size: 30px;
+                    
+                }
             
-            font-size: 17px;
         }
         button {
-            background-color: #6383A7;
-            width: 70px;
-            height: 25px;
-            border-radius: 5px;
-            font-size: 10px;
-            color: white;
-            margin-bottom: 5px;
-            
-        }
-        div {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-right: 20px;
-            position: absolute;
-            bottom: 0px;
-            gap: 35px;
-            margin-bottom: 5px;
+            width: 300px;
+            height: 50px;
+            background-color: #A9D9CA;
+            box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.3);
+           
         }
 `

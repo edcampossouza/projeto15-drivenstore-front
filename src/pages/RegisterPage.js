@@ -84,7 +84,7 @@ const Title = styled.h1`
 const RegisterForm = styled.form`
     width: 100vw;
     height: 100vh;
-    background-color: #e0edf4;
+    background-color: #9BA5BE;
     display: flex;
     flex-direction: column;
     gap: 13px;
@@ -106,19 +106,19 @@ const RegisterForm = styled.form`
         button {
             width: 326px;
             height: 46px;
-            background-color: #A9D9CA;
+            background-color: #E0EDF4;
             border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: black;
             cursor: pointer;
             font-size: 20px;
-            font-weight: 700;
             transition: 0.4s;
             &:hover {
-                background-color: #8FB9AC;
+                background-color: #cad9e1;
             }
+            
 
         }
         p {
