@@ -5,6 +5,7 @@ export const Title = styled.h1`
 `;
 
 export const PageContainer = styled.div`
+  margin-top: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
