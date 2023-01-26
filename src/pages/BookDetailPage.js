@@ -79,7 +79,7 @@ export default function BookDetailPage() {
                             </div>
                             :
                             <FinalButtons>
-                                <Link to="/">
+                                <Link to="/books">
                                     <button>Continuar comprando</button>
                                 </Link>
                                 <Link to="/cart">
@@ -131,11 +131,13 @@ export default function BookDetailPage() {
 const BookContainer = styled.div`
   display: flex;  
   height: 80%;  
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 90px);
   width: 100vw;
   background-color: #e9e9e9;
+  margin-top: 90px;
+
          h1 {
                 font-size: 30px;
                 font-weight: 500;
@@ -149,11 +151,10 @@ const BookContainer = styled.div`
                 font-size: 20px;
                 color: #00bcd4;
             }
-            @media (max-width: 800px) {
+            @media (max-width: 1050px) {
                flex-direction: column;
                margin-top: 90px;
-               height: 140vh;
-              
+               height: 150vh;
             }
          
    
@@ -186,19 +187,21 @@ const BookImage = styled.div`
     justify-content: center;
     align-items: center;
     width: 30vw;
-    height: 45vh;
+    margin-top: -100px;
+    
+    
 
         img {
-            width:350px ;
+            width:350px;
             box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.5);
-            @media (max-width: 800px) {
-             
-                margin-top: 20px;
+            @media (max-width: 1050px) {
+                margin-top: 120px;
               
             }
             
         }
         @media (max-width: 800px) {
+            
             margin-bottom: 10px;
               img {
                 width: 250px;
@@ -210,11 +213,12 @@ const BookImage = styled.div`
 `
 
 const BookInfo = styled.div`
-    margin-left: 30px;
-    width: 40vw;
+    width: 60vw;
     display: flex;
     flex-direction: column;    
     gap: 30px;
+    margin-top: -80px;
+
         div {
             display: flex;
             flex-direction: column;
@@ -223,26 +227,23 @@ const BookInfo = styled.div`
         img {
             width: 100px;
         }
-        @media (max-width: 1100px) {
-            margin-left: 100px;
-               
-        }
+       
         @media (max-width: 800px) {
             margin-left: 0;
             width: 360px;
-            margin-top: 30px;
-           
-            
-               
+            margin-top: 20px;
+        }
+        @media(max-width: 400px) {
+            margin-top: 10px;
         }
 
 `
 
 const FootNotes = styled.div`
     display: flex;
-    justify-content: space-between!important;
+    justify-content: space-around!important;
     flex-direction: row!important;
-    margin-top: 25px;
+    margin-top: 10px;
             div {
                 display: flex;
                 flex-direction: column;

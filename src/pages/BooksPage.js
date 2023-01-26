@@ -37,11 +37,11 @@ export default function BooksPage() {
                             <img src={book.cover} />
                             <BookInfo>
                                 <h2>{book.title}</h2>
-                                <h3>{book.author}</h3>
+                                <h3>by {book.author}</h3>
                                 <div>
                                     <p>{formataReais(book.price)}</p>
                                     <Link to={`/book-detail/${book._id}`} >
-                                        <button>Add to cart <BsCartPlus /></button>
+                                        <button><span>Add to cart</span><BsCartPlus /></button>
                                     </Link>
                                 </div>
                             </BookInfo>
@@ -63,8 +63,21 @@ const BookPageContainer = styled.div`
     justify-content: center;
     justify-items: center;
     align-items: center;
-    padding-right: 300px;
-    padding-left: 300px;
+    padding-right: 200px;
+    padding-left: 200px;
+        
+        @media (max-width: 1600px) {
+            padding-left: 200px;
+            padding-right: 200px;
+        }
+        @media (max-width: 900px) {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+        @media (max-width: 450px) {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
   
 
 `
@@ -74,13 +87,24 @@ const TitleStyle = styled.div`
     display: flex;
     justify-content: left;
     text-align: left;   
-    margin: 180px 200px 100px 200px;
+    margin-top: 140px;
+    margin-bottom: 40px;
+    padding-left: 200px;
     height: 90px;
+    
     h1 {
-        font-size: 40px;
+        font-size: 35px;
         font-family: 'Libre Bodoni', sans-serif;
-        
+        @media (max-width: 450px) {
+            font-size: 30px;
+        }
+
     }
+   
+        @media (max-width: 1000px) {
+            justify-content: center;     
+            padding:0 ;
+        }
 `
 
 
@@ -99,10 +123,11 @@ const BookContainer = styled.div`
                 border-radius:10px;
                 //box-shadow: -10px 10px 7px -4px rgba(0, 0, 0, 0.4)
                 box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.5);
-            &:hover{
-                width: 190px;
-                height: 280px;
-           }
+                @media (max-width: 480px) {
+                    width: 260px;
+                    height: 340px;
+                 }
+            
             
            
         }
@@ -115,31 +140,50 @@ const BookInfo = styled.div`
     flex-direction: column;
     gap: 5px;
     margin-top: 10px;
-
-   
-    h2 {
+        h2 {
             font-size: 14px;
             margin-left: 30px;
             margin-right: 30px;
+            @media (max-width: 480px) {
+                    font-size: 23px;
+                    margin: 0;
+                    margin-top: 10px;
+                 }
         }
         h3 {
             font-size: 12px;
             margin-left: 30px;
             margin-right: 30px;
+            @media (max-width: 480px) {
+                  font-size: 20px;
+                  margin: 0;
+                 }
         }
         p {
             color: #6383A7;
             margin-left: 30px;
             
             font-size: 17px;
+            @media (max-width: 480px) {
+                  font-size: 20px;
+                  margin: 0;
+                 }
         }
         button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #9BA5BE;
             width: 70px;
             height: 25px;            
             font-size: 10px;
             color: white;
             margin-bottom: 5px;
+            @media (max-width: 480px) {
+                width: 100px;
+                height: 35px;
+                  font-size: 15px;
+                 }
          
             
         }
@@ -152,6 +196,13 @@ const BookInfo = styled.div`
             bottom: 0px;
             gap: 35px;
             margin-bottom: 5px;
+        }
+        span {
+            margin-right: 5px;
+        }
+        @media (max-width: 480px) {
+                  height: 170px;
+                  gap: 20px;
         }
 `
 

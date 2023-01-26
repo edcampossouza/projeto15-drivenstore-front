@@ -29,14 +29,17 @@ const Home = styled.div`
     align-items: center;
     justify-content: center;
     background-color: #e9e9e9;
+ 
         @media (max-width:1050px) {
-                        flex-direction: column-reverse;
-                        margin-top: 90px;
+                flex-direction: column-reverse;
+                margin-top: 90px;
+                height:calc(100vh - 90px) ;
+                  
                         
-                    }
+        }
        @media (max-width:600px) {
-                   margin-top: 0;
-            }
+                
+        }
     
         div {
             margin-left: 20px;
@@ -46,29 +49,48 @@ const Home = styled.div`
             flex-direction: column;
             justify-content: space-between;
             align-items: left;
-            @media (max-width:1100px) {
+            @media (max-width:1050px) {
                    width: 70%;
-                   height:60%;
-                   margin-bottom: 10px;
+                   height: 350px;
                    margin-left: 0;
+                   justify-content: flex-start;
+                   gap: 30px;
                     
                 }
+                @media (max-width:385px) {
+                   gap: 20px;
+                    
+            }
+                
+           
                 
         }
 
         img {
             width: 700px;
             height: 400px;
-            @media (max-width:1100px) {
+            @media (max-width:1050px) {
                     width: 600px;
                     height: 400px;
-                    margin-top: 100px;
+                    margin-top: 40px;
+                   
+                    
+                    
+            }
+            @media (max-width:980px) {
+                    width: 600px;
+                    height: 400px;
+                  
                     
             }
             @media (max-width:600px) {
                     width: 400px;
-                    height: 200px;
-                   
+                    height: 200px;                 
+                    
+            }
+            @media (max-width:385px) {
+                    width: 350px;
+                    height: 200px;                 
                     
             }
         }
@@ -80,13 +102,22 @@ const Home = styled.div`
                    font-size: 30px;
                     
                 }
+                @media (max-width:385px) {
+                    font-size:20px;
+                    
+            }
             
         }
+        
         button {
             width: 300px;
             height: 50px;
             background-color: #A9D9CA;
             box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.3);
+            @media (max-width:385px) {
+                   width:250px ;
+                    
+            }
            
         }
 `
