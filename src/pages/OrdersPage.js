@@ -79,7 +79,8 @@ function OrdersTable({ orders }) {
           <tbody>
             {orders.map((order) => (
               <OrderContainer key={order._id}>
-                <td>{order._id}</td>
+                <td className="wide">{order._id}</td>
+                <td className="narrow">{order._id.substring(15, 24)}</td>
                 <td>{formataData(order.datetime)}</td>
                 <td>{formataReais(order.totalPrice)}</td>
                 <td>
@@ -123,49 +124,143 @@ function OrdersDetail({ orderID }) {
         "Carregando..."
       ) : (
         <>
-          <OrderTitle>Pedido #{orderID}</OrderTitle>
-          <OrderDetails>
-            <TableTitle>
-              <td></td>
-              <td>Titulo</td>
-              <td>Autor</td>
-              <td>Qtd.</td>
-              <td>Preco Total</td>
-              <td>Tipo</td>
-              <td></td>
-            </TableTitle>
-            <tbody>
-              {order.books.map((book) => (
-                <OrderContainer>
-                  <td>
-                    <img src={book.book.cover} />
-                  </td>
-                  <td>{book.book.title}</td>
-                  <td>{book.book.author}</td>
-                  <td>{book.quantity}</td>
-                  <td>{formataReais(book.totalPrice)}</td>
-                  <td>
-                    {book.book.type === "digital" && "Digital"}
-                    {book.book.type === "physical" && "Físico"}
-                  </td>
-                  <td>
-                    {book.book.type === "digital" && (
-                      <ButtonStyle>
-                        <a href={book.book.downloadLink} target="_blank">
-                          Baixar
-                        </a>
-                      </ButtonStyle>
-                    )}
-                  </td>
-                </OrderContainer>
-              ))}
-            </tbody>
-          </OrderDetails>
+          <OrderWide order={order} />
+          <OrderNarrow order={order} />
         </>
       )}
     </>
   );
 }
+
+function OrderWide({ order }) {
+  return (
+    <WideContainer>
+      <OrderTitle>Pedido #{order._id}</OrderTitle>
+      <OrderDetails>
+        <TableTitle>
+          <td></td>
+          <td>Titulo</td>
+          <td>Autor</td>
+          <td>Qtd.</td>
+          <td>Preco Total</td>
+          <td>Tipo</td>
+          <td></td>
+        </TableTitle>
+        <tbody>
+          {order.books.map((book) => (
+            <OrderContainer>
+              <td>
+                <img src={book.book.cover} />
+              </td>
+              <td>{book.book.title}</td>
+              <td>{book.book.author}</td>
+              <td>{book.quantity}</td>
+              <td>{formataReais(book.totalPrice)}</td>
+              <td>
+                {book.book.type === "digital" && "Digital"}
+                {book.book.type === "physical" && "Físico"}
+              </td>
+              <td>
+                {book.book.type === "digital" && (
+                  <ButtonStyle>
+                    <a href={book.book.downloadLink} target="_blank">
+                      Baixar
+                    </a>
+                  </ButtonStyle>
+                )}
+              </td>
+            </OrderContainer>
+          ))}
+        </tbody>
+      </OrderDetails>
+    </WideContainer>
+  );
+}
+
+function OrderNarrow({ order }) {
+  return (
+    <NarrowContainer>
+      <OrderTitle>Pedido #{order._id}</OrderTitle>
+      <OrderDetails>
+        <TableTitle>
+          <td></td>
+          {/* <td>Titulo</td>
+          <td>Autor</td>
+          <td>Qtd.</td>
+          <td>Preco Total</td>
+          <td>Tipo</td> */}
+          <td>Detalhes</td>
+          <td></td>
+        </TableTitle>
+        <tbody>
+          {order.books.map((book) => (
+            <OrderContainer>
+              <td>
+                <img src={book.book.cover} />
+              </td>
+              <InnerTable>
+                <tbody>
+                  <tr>
+                    <td>{book.book.title}</td>
+                  </tr>
+                  <tr>
+                    <td>{book.book.author}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {book.quantity} unidade{book.quantity > 1 && "s"}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{formataReais(book.totalPrice)}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {book.book.type === "digital" && "Digital"}
+                      {book.book.type === "physical" && "Físico"}
+                    </td>
+                  </tr>
+                </tbody>
+              </InnerTable>
+
+              <td>
+                {book.book.type === "digital" && (
+                  <ButtonStyle>
+                    <a href={book.book.downloadLink} target="_blank">
+                      Baixar
+                    </a>
+                  </ButtonStyle>
+                )}
+              </td>
+            </OrderContainer>
+          ))}
+        </tbody>
+      </OrderDetails>
+    </NarrowContainer>
+  );
+}
+
+const WideContainer = styled.div`
+  @media (max-width: 715px) {
+    display: none;
+  }
+`;
+const NarrowContainer = styled.div`
+  @media (min-width: 716px) {
+    display: none;
+  }
+`;
+
+const InnerTable = styled.table`
+  tbody {
+    tr:nth-child(odd) {
+      background-color: #e0edf4;
+    }
+    tr:nth-child(even) {
+      background-color: #9ba5be;
+    }
+  }
+`;
 const EyeIcon = styled(AiFillEye)`
   &:hover {
     cursor: pointer;
@@ -182,6 +277,16 @@ const OrderContainer = styled.tr`
     padding: 5px;
     text-align: center;
     vertical-align: middle;
+  }
+  @media (max-width: 715px) {
+    td.wide {
+      display: none;
+    }
+  }
+  @media (min-width: 716px) {
+    td.narrow {
+      display: none;
+    }
   }
   img {
     width: 100px;
@@ -205,5 +310,6 @@ const OrderTitle = styled.h2`
   font-size: 18px;
   font-weight: bold;
   border-bottom: 1px solid black;
+  text-align: center;
   margin: 10px 0px;
 `;
