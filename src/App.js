@@ -14,7 +14,6 @@ function App() {
       <GlobalStyle />
       <AppProvider>
         <Routes>
-
           <Route path="/" element={<HomePage />} />
           <Route path="/sign-up" element={<RegisterPage />} />
           <Route path="/sign-in" element={<LoginPage />} />

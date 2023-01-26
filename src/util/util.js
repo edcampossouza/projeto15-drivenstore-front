@@ -4,6 +4,8 @@ export function formataReais(preco) {
   if (typeof preco === "string") {
     preco = Number(preco);
     if (isNaN(preco)) return "valor inválido";
+    console.log(preco)
   }
   return `R$ ${preco.toFixed(2).replace(".", ",")}`;
 }
+
