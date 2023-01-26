@@ -9,12 +9,11 @@ export function formataReais(preco) {
   return `R$ ${preco.toFixed(2).replace(".", ",")}`;
 }
 
-export function formataDataHora(dataHora) {
+export function formataData(dataHora) {
   if (typeof dataHora === "number") {
     const data = new Date();
-    data.setDate(dataHora);
+    data.setTime(dataHora);
     dataHora = data;
   }
-  const data = new Date();
-  return data.toLocaleDateString();
+  return dataHora.toLocaleDateString();
 }
