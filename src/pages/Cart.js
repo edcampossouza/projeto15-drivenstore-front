@@ -57,6 +57,9 @@ export default function Cart() {
                   <Link to={"/"}>
                     <ButtonStyle>Continuar comprando</ButtonStyle>
                   </Link>
+                  <Link to={"/orders"}>
+                    <ButtonStyle>Meus Pedidos</ButtonStyle>
+                  </Link>
                 </ButtonsContainer>
               </>
             ) : (

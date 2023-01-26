@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Cart from "./pages/Cart";
 import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/book-detail?/:id" element={<BookDetailPage />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
         </Routes>
 
 
