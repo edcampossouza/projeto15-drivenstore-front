@@ -101,7 +101,7 @@ export default function CheckoutPage() {
       );
       alert(response.data);
       limpaDados();
-      navigate("/");
+      navigate("/orders");
     } catch (error) {
       alert(error.response.data);
     }
