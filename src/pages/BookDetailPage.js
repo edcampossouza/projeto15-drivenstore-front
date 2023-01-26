@@ -13,7 +13,7 @@ import {FiBook} from 'react-icons/fi'
 
 export default function BookDetailPage() {
     const { id } = useParams()
-    const { token } = useContext(AppContext)
+    const { token, setCartItems, cartItems } = useContext(AppContext)
     const [book, setBook] = useState([])
     const [quantity, setQuantity] = useState()
     const [isAddingToCart, setIsAddingToCart] = useState(true)
@@ -23,7 +23,7 @@ export default function BookDetailPage() {
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/books/${id}`)
             .then(res => {
-                setBook(res.data)
+                setBook(res.data)              
                 console.log(res.data)
             })
 
@@ -40,7 +40,7 @@ export default function BookDetailPage() {
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
             .then(res => {
                 setIsAddingToCart(false)
-                setAddedToCard([true, res.data])
+                setAddedToCard([true, res.data])            
             })
     }
 
@@ -65,11 +65,11 @@ export default function BookDetailPage() {
                     </div>
                     <div>
 
-                        {addedToCart[0] && <h1>{addedToCart[1]}</h1>}
+                        {addedToCart[0] && <h5>{addedToCart[1]}</h5>}
                         {isAddingToCart ?
 
                             <div>
-                                <span>R$ {book.price},00</span>
+                                <span>{formataReais(book.price)}</span>
                                 <AddToCart>
                                     <p>Quantidade: </p>
                                     <input onChange={(e) => setQuantity(e.target.value)} type="number" />
@@ -77,23 +77,23 @@ export default function BookDetailPage() {
                                 </AddToCart>
                             </div>
                             :
-                            <div>
+                            <FinalButtons>
                                 <Link to="/">
                                     <button>Continuar comprando</button>
                                 </Link>
                                 <Link to="/cart">
                                     <button>Ir para o carrinho</button>
                                 </Link>
-                            </div>
+                            </FinalButtons>
 
                         }
 
                     </div>
                     <FootNotes>
                         <div>
-                            <span>R$ {book.price}</span>
-                            <input onChange={(e) => setQuantity(e.target.value)} type={"number"} />
-                            <button onClick={addToCart} >Adicionar ao carrinho</button>
+                        <p>Idioma</p>
+                            <IoMdGlobe />
+                            <span>Português</span>
                         </div>
                         <div>
                             <p>Data de publicação</p>
@@ -126,6 +126,7 @@ export default function BookDetailPage() {
     )
 }
 
+
 const BookContainer = styled.div`
   display: flex;  
   height: 80%;  
@@ -140,6 +141,15 @@ const BookContainer = styled.div`
             span {
                font-size: 25px;
                font-weight: bold;
+            }
+            h5 {
+                font-size: 20px;
+                color: #00bcd4;
+            }
+            @media (max-width: 800px) {
+               flex-direction: column;
+               margin-top: 10px;
+              
             }
          
    
@@ -161,6 +171,9 @@ const AddToCart = styled.div`
                 height: 40px;
                 background-color: #A9D9CA;
                 box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+                &:hover {
+                        background-color: #8FB9AC;
+                    }
             }
 `
 
@@ -169,12 +182,20 @@ const BookImage = styled.div`
     justify-content: center;
     align-items: center;
     width: 30vw;
-    height: 60vh;
+    height: 45vh;
 
         img {
             width:350px ;
             box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
         }
+        @media (max-width: 800px) {
+            margin-bottom: 10px;
+              img {
+                width: 250px;
+               
+              }
+            }
+      
 
 `
 
@@ -191,6 +212,15 @@ const BookInfo = styled.div`
         }
         img {
             width: 100px;
+        }
+        @media (max-width: 1100px) {
+            margin-left: 100px;
+               
+        }
+        @media (max-width: 800px) {
+            margin-left: 0;
+            width: 360px;
+               
         }
 
 `
@@ -216,3 +246,24 @@ const FootNotes = styled.div`
                 font-size: 14px;
             }
 `
+
+const FinalButtons = styled.div`
+    display: flex!important;
+    flex-direction: row!important;
+        button {
+                    width:300px;
+                    height: 40px;
+                    background-color: #A9D9CA;
+                    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
+                    &:hover {
+                        background-color: #8FB9AC;
+                    }
+                    
+                }
+                @media (max-width: 1500px) {
+                     flex-direction: column!important;
+                     justify-content: center;
+                     align-items: center;
+
+                 }
+`   

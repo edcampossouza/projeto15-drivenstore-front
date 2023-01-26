@@ -36,6 +36,7 @@ export default function Cart() {
       alert(error.response.data);
     }
   }
+  console.log(cartItems)
   return (
     <>
       <Header />

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { BsCartPlus } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import Header from "../components/Header"
+import { formataReais } from "../util/util"
 
 export default function HomePage() {
     const [books, setBooks] = useState([])
@@ -34,7 +35,7 @@ export default function HomePage() {
                             <h2>{book.title}</h2>
                             <h3>{book.author}</h3>
                             <div>
-                                <p>R$ {book.price}</p>
+                                <p>{formataReais(book.price)}</p>
                                 <Link to={`/book-detail/${book._id}`} >
                                     <button>Add to cart <BsCartPlus /></button>
                                 </Link>
