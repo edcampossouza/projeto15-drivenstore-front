@@ -21,8 +21,30 @@ export default function CheckoutPage() {
 
   const [numCartao, setNumCartao] = useState("");
   const [numCep, setNumCep] = useState("");
-  const [logradouro, setEndereco] = useState("");
+  const [logradouro, setLogradouro] = useState("");
+  const [salvarEndereco, setSalvarEndereco] = useState(false);
 
+  useEffect(() => {
+    async function carregaEndereco() {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/address`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response) {
+          setLogradouro(response.data.address.line);
+          setNumCep(response.data.address.cep);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    carregaEndereco();
+  }, []);
   // exibe formato "000-000"
   function cartaoMask(numero) {
     return numero
@@ -32,7 +54,7 @@ export default function CheckoutPage() {
 
   // considera os 6 primeiros caracteres numericos
   function cartaoFilter(numero) {
-    return numero.replace(/\D/g, "").replace(/$(\d{6})(.*)/, "$1");
+    return numero.replace(/\D/g, "").substring(0, 6);
   }
 
   // exibe formato "000000-000"
@@ -44,7 +66,7 @@ export default function CheckoutPage() {
 
   // considera os 8 primeiros caracteres numericos
   function cepFilter(numero) {
-    return numero.replace(/\D/g, "").replace(/$(\d{8})(.*)/, "$1");
+    return numero.replace(/\D/g, "").substring(0, 8);
   }
 
   function aplicaFiltro(e, mask) {
@@ -53,17 +75,24 @@ export default function CheckoutPage() {
   }
 
   async function confirmaPedido(e) {
+    const checkoutInfo = {
+      address: {
+        line: logradouro,
+        cep: numCep,
+      },
+      cardNumber: numCartao,
+      saveAddress: salvarEndereco,
+    };
     e.preventDefault();
     const numItems = cartItems.reduce((p, c) => p + c.quantity, 0);
     if (numItems === 0) {
       alert("Nenhum item no carrinho");
       return;
     }
-    alert("itens: " + cartItems);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/checkout`,
-        {},
+        checkoutInfo,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,7 +108,7 @@ export default function CheckoutPage() {
   }
 
   function limpaDados() {
-    setEndereco("");
+    setLogradouro("");
     setNumCartao("");
     setNumCep("");
     setCartItems([]);
@@ -129,11 +158,19 @@ export default function CheckoutPage() {
               <input
                 class="logradouro"
                 value={logradouro}
-                onChange={(e) => setEndereco(e.target.value)}
+                onChange={(e) => setLogradouro(e.target.value)}
                 placeholder="Rua x, num 0"
                 required
               />
             </InputRow>
+            <InputRowCompact>
+              <label>Salvar este endereço para próximas compras?</label>
+              <input
+                type="checkbox"
+                value={salvarEndereco}
+                onChange={() => setSalvarEndereco(!salvarEndereco)}
+              ></input>
+            </InputRowCompact>
             <InputRow>
               <span></span>
               <ButtonStyle type="submit">Confirmar Pedido</ButtonStyle>
@@ -187,4 +224,15 @@ const InputRow = styled.div`
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
+`;
+
+const InputRowCompact = styled(InputRow)`
+  justify-content: flex-start;
+  input {
+    width: 50px;
+  }
+  label {
+    vertical-align: bottom;
+  }
+  align-items: flex-end;
 `;
