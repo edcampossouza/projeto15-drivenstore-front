@@ -6,6 +6,7 @@ import BookDetailPage from "./pages/BookDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Cart from "./pages/Cart";
+import CheckoutPage from "./pages/CheckoutPage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/sign-in" element={<LoginPage />} />
           <Route path="/book-detail?/:id" element={<BookDetailPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
 
 
