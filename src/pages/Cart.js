@@ -4,7 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
-
+import {
+  Title,
+  ButtonStyle,
+  ButtonsContainer,
+  PageContainer,
+} from "../style/sharedStyles";
 export default function Cart() {
   const { cartItems, setCartItems } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
@@ -36,64 +41,69 @@ export default function Cart() {
       alert(error.response.data);
     }
   }
-  console.log(cartItems)
+  console.log(cartItems);
   return (
     <>
       <Header />
-      {loading ? (
-        "Carregando..."
-      ) : (
-        <>
-          {cartItems.length < 1 ? (
-            <>
-              <Title>Seu carrinho está vazio</Title>
-              <ButtonsContainer>
-                <Link to={"/"}>
-                  <Button>Continuar comprando</Button>
-                </Link>
-              </ButtonsContainer>
-            </>
-          ) : (
-            <>
-              <Title>Seu carrinho</Title>
-              <CartContainer>
-                <TableTitle>
-                  <td>Capa</td>
-                  <td>Titulo</td>
-                  <td>Quantidade</td>
-                </TableTitle>
-                <CartItems>
-                  {cartItems.map((item) => (
-                    <ItemRow key={item._id}>
-                      <td>
-                        <img src={item.cover} alt={`cover ${item.title}`} />
-                      </td>
-                      <td>{item.title}</td>
-                      <td>{item.quantity}</td>
-                      <td onClick={() => removeLivro(item)}>
-                        <DeleteBtn>Remover</DeleteBtn>
-                      </td>
-                    </ItemRow>
-                  ))}
-                </CartItems>
-              </CartContainer>
-              <ButtonsContainer>
-                <Link to={"/"}>
-                  <Button>Continuar comprando</Button>
-                </Link>
-                <Button>Checkout</Button>
-              </ButtonsContainer>
-            </>
-          )}
-        </>
-      )}
+      <PageContainer>
+        {loading ? (
+          "Carregando..."
+        ) : (
+          <>
+            {cartItems.length < 1 ? (
+              <>
+                <Title>Seu carrinho está vazio</Title>
+                <ButtonsContainer>
+                  <Link to={"/"}>
+                    <ButtonStyle>Continuar comprando</ButtonStyle>
+                  </Link>
+                </ButtonsContainer>
+              </>
+            ) : (
+              <>
+                <Title>Seu carrinho</Title>
+                <CartContainer>
+                  <TableTitle>
+                    <td>Capa</td>
+                    <td>Titulo</td>
+                    <td>Qtd.</td>
+                  </TableTitle>
+                  <CartItems>
+                    {cartItems.map((item) => (
+                      <ItemRow key={item._id}>
+                        <td>
+                          <img src={item.cover} alt={`cover ${item.title}`} />
+                        </td>
+                        <td>
+                          <Link to={`/book-detail/${item.bookID}`}>
+                            {item.title}
+                          </Link>
+                        </td>
+                        <td>{item.quantity}</td>
+                        <td onClick={() => removeLivro(item)}>
+                          <ButtonStyle>Remover</ButtonStyle>
+                        </td>
+                      </ItemRow>
+                    ))}
+                  </CartItems>
+                </CartContainer>
+                <ButtonsContainer>
+                  <Link to={"/"}>
+                    <ButtonStyle>Continuar comprando</ButtonStyle>
+                  </Link>
+                  <Link to={"/checkout"}>
+                    <ButtonStyle>Checkout</ButtonStyle>
+                  </Link>
+                </ButtonsContainer>
+              </>
+            )}
+          </>
+        )}
+      </PageContainer>
     </>
   );
 }
 
-const Title = styled.h1`
-  font-size: 36px;
-`;
 const TableTitle = styled.thead`
   text-align: center;
 `;
@@ -106,20 +116,5 @@ const ItemRow = styled.tr`
   td {
     vertical-align: middle;
     text-align: center;
-  }
-`;
-const Button = styled.button``;
-const ButtonsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  Button {
-    border: none;
-    border-radius: 5px;
-  }
-`;
-const DeleteBtn = styled.button`
-  border: none;
-  :hover {
-    cursor: pointer;
   }
 `;
