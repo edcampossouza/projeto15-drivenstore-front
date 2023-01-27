@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import AppContext from "../context/AppContext";
@@ -15,26 +15,27 @@ import { formataData, formataReais } from "../util/util";
 
 export default function OrdersPage() {
   const { orders, setOrders, token } = useContext(AppContext);
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
-  useEffect(() => {
-    async function getOrders() {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/orders`,
-          axiosConfig
-        );
-        setOrders(response.data);
-      } catch (error) {
-        alert(error.response?.data || error.message);
-      }
+  async function getOrders() {
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/orders`,
+        axiosConfig
+      );
+      setOrders(response.data);
+    } catch (error) {
+      alert(error.response?.data || error.message);
     }
-    getOrders();
-  }, [axiosConfig]);
+  }
+  const cbGetOrders = useCallback(getOrders, [setOrders, token]);
+  useEffect(() => {
+    cbGetOrders();
+  }, [cbGetOrders]);
   return (
     <>
       <Header />
@@ -103,12 +104,12 @@ function OrdersTable({ orders }) {
 function OrdersDetail({ orderID }) {
   const [order, setOrder] = useState(null);
   const { token } = useContext(AppContext);
-  const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
   async function getOrderDetails() {
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_API_URL}/orders/${orderID}`,
@@ -119,9 +120,14 @@ function OrdersDetail({ orderID }) {
       alert(error.response?.data || error.message);
     }
   }
+  const cbGetOrderDetails = useCallback(getOrderDetails, [
+    setOrder,
+    token,
+    orderID,
+  ]);
   useEffect(() => {
-    getOrderDetails();
-  }, [orderID]);
+    cbGetOrderDetails();
+  }, [cbGetOrderDetails]);
   return (
     <>
       {!order ? (
@@ -152,9 +158,9 @@ function OrderWide({ order }) {
         </TableTitle>
         <tbody>
           {order.books.map((book) => (
-            <OrderContainer>
+            <OrderContainer key={book._id}>
               <td>
-                <img src={book.book.cover} />
+                <img src={book.book.cover} alt="book cover" />
               </td>
               <td>{book.book.title}</td>
               <td>{book.book.author}</td>
@@ -167,7 +173,11 @@ function OrderWide({ order }) {
               <td>
                 {book.book.type === "digital" && (
                   <ButtonStyle>
-                    <a href={book.book.downloadLink} target="_blank">
+                    <a
+                      href={book.book.downloadLink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Baixar
                     </a>
                   </ButtonStyle>
@@ -193,9 +203,9 @@ function OrderNarrow({ order }) {
         </TableTitle>
         <tbody>
           {order.books.map((book) => (
-            <OrderContainer>
+            <OrderContainer key={book._id}>
               <td>
-                <img src={book.book.cover} />
+                <img src={book.book.cover} alt="book cover" />
               </td>
               <InnerTable>
                 <tbody>
@@ -225,7 +235,11 @@ function OrderNarrow({ order }) {
               <td>
                 {book.book.type === "digital" && (
                   <ButtonStyle>
-                    <a href={book.book.downloadLink} target="_blank">
+                    <a
+                      href={book.book.downloadLink}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Baixar
                     </a>
                   </ButtonStyle>

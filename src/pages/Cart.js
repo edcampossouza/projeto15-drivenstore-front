@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState, useCallback } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
@@ -12,12 +12,10 @@ import {
   PageContainer,
 } from "../style/sharedStyles";
 export default function Cart() {
+  const navigate = useNavigate();
   const { cartItems, setCartItems } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   const { token } = useContext(AppContext);
-  useEffect(() => {
-    buscaItems();
-  }, []);
   async function buscaItems() {
     setLoading(true);
     try {
@@ -28,10 +26,13 @@ export default function Cart() {
       setCartItems(response.data);
     } catch (error) {
       alert(error.response.data);
+      navigate("/");
     } finally {
       setLoading(false);
     }
   }
+  const cbBuscaItems = useCallback(buscaItems, [navigate, setCartItems, token]);
+  useEffect(() => cbBuscaItems, [cbBuscaItems]);
   async function removeLivro(livro) {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${livro._id}`, {
@@ -42,7 +43,6 @@ export default function Cart() {
       alert(error.response.data);
     }
   }
-  console.log(cartItems);
   return (
     <>
       <Header />
