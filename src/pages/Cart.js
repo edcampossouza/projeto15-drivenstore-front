@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
-import { TitleStyle } from "./BooksPage";
+import { TitleStyle } from "../style/booksPageStyles";
 import { AiFillDelete } from "react-icons/ai";
 
 import {
@@ -26,6 +26,7 @@ export default function Cart() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCartItems(response.data);
+      console.log(response.data)
     } catch (error) {
       alert(error.response.data);
       navigate("/");

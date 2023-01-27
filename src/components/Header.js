@@ -1,5 +1,5 @@
 import { useContext, useEffect, useInsertionEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import AppContext from "../context/AppContext"
 import { BsHandbag } from 'react-icons/bs';
@@ -12,6 +12,7 @@ import { BiLogOut } from 'react-icons/bi'
 
 export default function Header() {
     const { token, setToken, cartItems, setCartItems, reload } = useContext(AppContext)
+  
     const [cart, setCart] = useState([])
     const [open, setOpen] = useState(false)
 
@@ -42,12 +43,13 @@ export default function Header() {
         const cartQuantity = cartItems.reduce((s, a) => Number(s) + Number(a.quantity), 0)
         setCart(cartQuantity)
     }, [cartItems])
+   
 
 
     return (
         <HeaderStyle>
             <Blur open={open} onClick={() => setOpen(false)} ></Blur>
-            <Link to="/">
+            <Link to="/books">
                 <h1>Booksly</h1>
             </Link>
             <nav>
@@ -59,8 +61,12 @@ export default function Header() {
                     <Link to="/books" >
                         <span>Livros</span>
                     </Link>
-                    <span>Lançamentos</span>
+                    <Link to="/books/newest">
+                        <span>Lançamentos</span>
+                    </Link>
+                    <Link to="/books/best-sellers" >  
                     <span>Mais vendidos</span>
+                    </Link>
                     {token.length <= 0 ?
 
                         <Link to="/sign-in">

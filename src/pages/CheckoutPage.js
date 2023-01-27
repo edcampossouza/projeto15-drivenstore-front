@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
-import { TitleStyle } from "./BooksPage";
+import { TitleStyle } from "../style/booksPageStyles";
 import {
   ButtonStyle,
   ButtonsContainer,

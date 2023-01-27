@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import AppContext from "../context/AppContext";
 import Header from "../components/Header";
-import { TitleStyle } from "./BooksPage";
+import { TitleStyle } from "../style/booksPageStyles";
 import axios from "axios";
 import {
   PageContainer,

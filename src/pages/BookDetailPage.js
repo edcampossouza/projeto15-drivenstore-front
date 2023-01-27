@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import stars from '../assets/images/stars.png'
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import Header from "../components/Header"
 import AppContext from "../context/AppContext"
@@ -13,6 +13,7 @@ import {FiBook} from 'react-icons/fi'
 
 export default function BookDetailPage() {
     const { id } = useParams()
+    const navigate = useNavigate()
     const { token, setCartItems, cartItems, setReload } = useContext(AppContext)
     const [book, setBook] = useState([])
     const [quantity, setQuantity] = useState(1)
@@ -37,7 +38,10 @@ export default function BookDetailPage() {
 
     function addToCart(e) {
         e.preventDefault()
-        if(token.length <= 0) return alert("Você precisa estar logado para adicionar o livro ao carrinho")
+        if(token.length <= 0){ 
+            alert("Você precisa estar logado para adicionar o livro ao carrinho")
+            return navigate("/sign-in")
+        }
 
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
             .then(res => {
