@@ -39,6 +39,9 @@ export const ButtonsContainer = styled.div`
     width: 200px;
     border-radius: 5px;
     margin: 10px 15px;
+    a {
+      color: white;
+    }
   }
   @media (max-width: 715px) {
     flex-direction: column;
