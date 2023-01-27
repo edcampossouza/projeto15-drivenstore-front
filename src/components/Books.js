@@ -44,14 +44,11 @@ export default function Books() {
     return (
         <>
             <Header />
-
             <TitleStyle>
                 {
                     pathname === "/books" ? <h1>Conheça nossos livros!</h1> : pathname === "/books/newest" ? <h1>Veja os Lançamentos!</h1> : <h1>Veja os mais vendidos!</h1>
                 }
-                
             </TitleStyle>
-
             <BookPageContainer>
                 {allBooks.map((book) =>
                     <Link to={`/book-detail/${book._id}`}>
@@ -73,7 +70,5 @@ export default function Books() {
                 )}
             </BookPageContainer>
         </>
-
-
     )
 }
