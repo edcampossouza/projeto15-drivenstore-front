@@ -46,7 +46,11 @@ export default function Cart() {
   return (
     <>
       <Header />
-      {cartItems.length === 0 && (
+      {loading ? (
+        <TitleStyle>
+          <h1> Carregando...</h1>
+        </TitleStyle>
+      ) : cartItems.length === 0 ? (
         <>
           <TitleStyle>
             <h1>Seu carrinho está vazio</h1>
@@ -60,58 +64,53 @@ export default function Cart() {
             </Link>
           </ButtonsContainer>
         </>
+      ) : (
+        <>
+          <TitleStyle>
+            <h1>Seu carrinho </h1>
+          </TitleStyle>
+          <PageContainer>
+            <CartContainer>
+              <TableTitle>
+                <tr>
+                  <td>Capa</td>
+                  <td>Titulo</td>
+                  <td>Qtd.</td>
+                </tr>
+              </TableTitle>
+              <CartItems>
+                {cartItems.map((item) => (
+                  <ItemRow key={item._id}>
+                    <td>
+                      <img src={item.cover} alt={`cover ${item.title}`} />
+                    </td>
+                    <td>
+                      <Link to={`/book-detail/${item.bookID}`}>
+                        {item.title}
+                      </Link>
+                    </td>
+                    <td>{item.quantity}</td>
+                    <td onClick={() => removeLivro(item)}>
+                      <ButtonStyle>Remover</ButtonStyle>
+                    </td>
+                  </ItemRow>
+                ))}
+              </CartItems>
+            </CartContainer>
+            <ButtonsContainer>
+              <Link to={"/"}>
+                <ButtonStyle>Continuar comprando</ButtonStyle>
+              </Link>
+              <Link to={"/orders"}>
+                <ButtonStyle>Meus Pedidos</ButtonStyle>
+              </Link>
+              <Link to={"/checkout"}>
+                <ButtonStyle>Checkout</ButtonStyle>
+              </Link>
+            </ButtonsContainer>
+          </PageContainer>
+        </>
       )}
-
-      {cartItems.length > 0 &&
-        (loading ? (
-          "Carregando..."
-        ) : (
-          <>
-            <>
-              <TitleStyle>
-                <h1>Seu carrinho </h1>
-              </TitleStyle>
-              <PageContainer>
-                <CartContainer>
-                  <TableTitle>
-                    <td>Capa</td>
-                    <td>Titulo</td>
-                    <td>Qtd.</td>
-                  </TableTitle>
-                  <CartItems>
-                    {cartItems.map((item) => (
-                      <ItemRow key={item._id}>
-                        <td>
-                          <img src={item.cover} alt={`cover ${item.title}`} />
-                        </td>
-                        <td>
-                          <Link to={`/book-detail/${item.bookID}`}>
-                            {item.title}
-                          </Link>
-                        </td>
-                        <td>{item.quantity}</td>
-                        <td onClick={() => removeLivro(item)}>
-                          <ButtonStyle>Remover</ButtonStyle>
-                        </td>
-                      </ItemRow>
-                    ))}
-                  </CartItems>
-                </CartContainer>
-                <ButtonsContainer>
-                  <Link to={"/"}>
-                    <ButtonStyle>Continuar comprando</ButtonStyle>
-                  </Link>
-                  <Link to={"/orders"}>
-                    <ButtonStyle>Meus Pedidos</ButtonStyle>
-                  </Link>
-                  <Link to={"/checkout"}>
-                    <ButtonStyle>Checkout</ButtonStyle>
-                  </Link>
-                </ButtonsContainer>
-              </PageContainer>
-            </>
-          </>
-        ))}
     </>
   );
 }
