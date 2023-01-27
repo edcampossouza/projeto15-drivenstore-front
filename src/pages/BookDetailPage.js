@@ -35,7 +35,8 @@ export default function BookDetailPage() {
         }
     }
 
-    function addToCart() {
+    function addToCart(e) {
+        e.preventDefault()
         if(token.length <= 0) return alert("Você precisa estar logado para adicionar o livro ao carrinho")
 
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
@@ -71,10 +72,10 @@ export default function BookDetailPage() {
 
                             <div>
                                 <span>{formataReais(book.price)}</span>
-                                <AddToCart>
+                                <AddToCart onSubmit={addToCart}>
                                     <p>Quantidade: </p>
-                                    <input onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number" />
-                                    <button onClick={addToCart} >Add to cart</button>
+                                    <input onChange={(e) => setQuantity(e.target.value)} min="1" value={quantity} type="number" />
+                                    <button  >Add to cart</button>
                                 </AddToCart>
                             </div>
                             :
@@ -160,14 +161,15 @@ const BookContainer = styled.div`
    
 `
 
-const AddToCart = styled.div`
+const AddToCart = styled.form`
     display: flex !important;;
     flex-direction: row!important;
     align-items: center;
+    gap: 30px;
             input {
                 width: 45px;
                 height: 20px;
-                padding: 10px;
+                padding: 5px;
                 margin-left: -20px;
                 box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.3);
             }
