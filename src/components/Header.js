@@ -11,7 +11,7 @@ import {RiCloseLine} from 'react-icons/ri'
 import {BiLogOut} from 'react-icons/bi'
 
 export default function Header() {
-    const { token, setToken, cartItems } = useContext(AppContext)
+    const { token, setToken, cartItems, setCartItems } = useContext(AppContext)
     const [cart, setCart] = useState([])
     const [open, setOpen] = useState(false)
 
@@ -30,6 +30,7 @@ export default function Header() {
                 .then(res => {
                     const cartQuantity = (res.data).reduce((s, a) => Number(s) + Number(a.quantity), 0)
                     setCart(cartQuantity)
+                    setCartItems(res.data);
                     
                 })
 
