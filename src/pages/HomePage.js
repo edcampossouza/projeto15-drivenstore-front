@@ -57,8 +57,9 @@ const Home = styled.div`
                    gap: 30px;
                     
                 }
-                @media (max-width:385px) {
-                   gap: 20px;
+                @media (max-width:400px) {
+                   gap: 10px;
+                   width: 75%;
                     
             }
                 

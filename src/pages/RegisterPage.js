@@ -66,6 +66,7 @@ export default function RegisterPage() {
                         wrapperClassName=""
                         visible={true} />}</button>
                 <p>Já tem uma conta? <Link to={"/sign-in"}><a>Entre agora!</a></Link></p>
+                <p>Quer cotinuar sem cadastro? <Link to="/"><a>Compre aqui!</a></Link> </p>
 
             </RegisterForm>
         </>

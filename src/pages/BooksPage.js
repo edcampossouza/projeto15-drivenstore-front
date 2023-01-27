@@ -19,7 +19,7 @@ export default function BooksPage() {
 
 
 
-    console.log(books)
+  
 
 
     return (

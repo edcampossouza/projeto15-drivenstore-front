@@ -53,6 +53,9 @@ table {
 	text-decoration: none;
 	border-style: none;
 	font-family: 'Raleway', sans-serif;
+		&:visited {
+			color: none;
+		}
 }
 #root {
 	position: relative;

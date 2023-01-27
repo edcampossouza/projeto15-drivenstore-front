@@ -30,7 +30,7 @@ export default function Header() {
                 .then(res => {
                     const cartQuantity = (res.data).reduce((s, a) => Number(s) + Number(a.quantity), 0)
                     setCart(cartQuantity)
-                    console.log(cartQuantity)
+                    
                 })
 
         }

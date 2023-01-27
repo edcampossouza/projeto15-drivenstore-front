@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import AppContext from "../context/AppContext"
 import {TbBooks} from 'react-icons/tb'
+import Header from "../components/Header"
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -21,13 +22,13 @@ export default function LoginPage() {
             .then(res => {
                 setToken(res.data.token)
                 setUserId(res.data.userId)
-                setUser(res.data.user)
-                console.log(res.data)
+                setUser(res.data.user)                
                 navigate("/")
 
             })
             .catch(err => {
-                console.log(err)
+                alert(err.response.data)
+                window.location.reload()
             })
 
 
@@ -35,6 +36,7 @@ export default function LoginPage() {
 
     return (
         <>
+       
             <LoginForm onSubmit={login} >
                 <Title>Booskly</Title>
                
@@ -51,6 +53,7 @@ export default function LoginPage() {
                         visible={true} />}</button>
                      
                 <p>Primeira vez? <Link to="/sign-up"><a>Cadastre-se!</a></Link> </p>
+                <p>Quer cotinuar sem login? <Link to="/"><a>Compre aqui!</a></Link> </p>
             </LoginForm>
         </>
     )

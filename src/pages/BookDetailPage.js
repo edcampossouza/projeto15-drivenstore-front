@@ -15,16 +15,16 @@ export default function BookDetailPage() {
     const { id } = useParams()
     const { token, setCartItems, cartItems } = useContext(AppContext)
     const [book, setBook] = useState([])
-    const [quantity, setQuantity] = useState()
+    const [quantity, setQuantity] = useState(1)
     const [isAddingToCart, setIsAddingToCart] = useState(true)
     const [addedToCart, setAddedToCard] = useState([false, ""])
-    console.log(id)
+    
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/books/${id}`)
             .then(res => {
                 setBook(res.data)              
-                console.log(res.data)
+               
             })
 
     }, [])
@@ -73,7 +73,7 @@ export default function BookDetailPage() {
                                 <span>{formataReais(book.price)}</span>
                                 <AddToCart>
                                     <p>Quantidade: </p>
-                                    <input onChange={(e) => setQuantity(e.target.value)} type="number" />
+                                    <input onChange={(e) => setQuantity(e.target.value)} value={quantity} type="number" />
                                     <button onClick={addToCart} >Add to cart</button>
                                 </AddToCart>
                             </div>
