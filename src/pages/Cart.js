@@ -5,12 +5,14 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
 import { TitleStyle } from "./BooksPage";
+import { AiFillDelete } from "react-icons/ai";
 
 import {
   ButtonStyle,
   ButtonsContainer,
   PageContainer,
 } from "../style/sharedStyles";
+import { formataReais } from "../util/util";
 export default function Cart() {
   const navigate = useNavigate();
   const { cartItems, setCartItems } = useContext(AppContext);
@@ -76,6 +78,8 @@ export default function Cart() {
                   <td>Capa</td>
                   <td>Titulo</td>
                   <td>Qtd.</td>
+                  <td>Preço</td>
+                  <td>Total</td>
                 </tr>
               </TableTitle>
               <CartItems>
@@ -90,8 +94,12 @@ export default function Cart() {
                       </Link>
                     </td>
                     <td>{item.quantity}</td>
+                    <td>{formataReais(item.price)}</td>
+                    <td>{formataReais(item.price * item.quantity)}</td>
                     <td onClick={() => removeLivro(item)}>
-                      <ButtonStyle>Remover</ButtonStyle>
+                      <ButtonStyle>
+                        <AiFillDelete />
+                      </ButtonStyle>
                     </td>
                   </ItemRow>
                 ))}
