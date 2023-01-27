@@ -17,11 +17,6 @@ export default function BooksPage() {
             })
     }, [])
 
-
-
-  
-
-
     return (
         <>
             <Header />
@@ -177,8 +172,16 @@ const BookInfo = styled.div`
             width: 70px;
             height: 25px;            
             font-size: 10px;
-            color: white;
             margin-bottom: 5px;
+            border-radius:5px;
+            color: white;
+                &:hover {
+                    box-shadow: 0 5px 16px 0 rgba(0,0,0,0.24),0 17px 90px 0 rgba(0,0,0,0.19);
+                }
+                span {
+                    color: white!important;
+                }
+           
             @media (max-width: 480px) {
                 width: 100px;
                 height: 35px;

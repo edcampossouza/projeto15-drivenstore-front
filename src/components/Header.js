@@ -7,11 +7,11 @@ import { BsChatSquare } from 'react-icons/bs'
 import axios from "axios";
 import logo from '../assets/images/logo2.png'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import {RiCloseLine} from 'react-icons/ri'
-import {BiLogOut} from 'react-icons/bi'
+import { RiCloseLine } from 'react-icons/ri'
+import { BiLogOut } from 'react-icons/bi'
 
 export default function Header() {
-    const { token, setToken, cartItems, setCartItems } = useContext(AppContext)
+    const { token, setToken, cartItems, setCartItems, reload } = useContext(AppContext)
     const [cart, setCart] = useState([])
     const [open, setOpen] = useState(false)
 
@@ -31,13 +31,12 @@ export default function Header() {
                     const cartQuantity = (res.data).reduce((s, a) => Number(s) + Number(a.quantity), 0)
                     setCart(cartQuantity)
                     setCartItems(res.data);
-                    
-                })
 
+                })
         }
 
 
-    }, [])
+    }, [reload])
 
     useEffect(() => {
         const cartQuantity = cartItems.reduce((s, a) => Number(s) + Number(a.quantity), 0)
@@ -52,9 +51,9 @@ export default function Header() {
                 <h1>Booksly</h1>
             </Link>
             <nav>
-                <Menu open={open} > 
-                      
-                      <Link to="/" >
+                <Menu open={open} >
+
+                    <Link to="/" >
                         <span>Home</span>
                     </Link>
                     <Link to="/books" >
@@ -71,14 +70,14 @@ export default function Header() {
                         <Link to="/" onClick={() => {
                             setToken([])
                             window.location.reload()
-                            }}>
-                        <span><BiLogOut size="1.4em" /></span>
+                        }}>
+                            <span><BiLogOut size="1.4em" /></span>
                         </Link>
                     }
                 </Menu>
                 <MobileMenu >
-                    {!open ? <RxHamburgerMenu onClick={() => {setOpen(!open)}} /> : <RiCloseLine onClick={() => {setOpen(!open)}}/>}
-                    
+                    {!open ? <RxHamburgerMenu onClick={() => { setOpen(!open) }} /> : <RiCloseLine onClick={() => { setOpen(!open) }} />}
+
                 </MobileMenu>
                 <div>
                     <Link to="/cart">
@@ -105,8 +104,6 @@ const Blur = styled.div`
         @media(max-width: 900px) {
             display: ${props => props.open ? 'block!important' : 'none!important'};
             backdrop-filter: blur(5px);
-            
-            
         }
    
 `
@@ -193,14 +190,15 @@ const HeaderStyle = styled.div`
 
 const Menu = styled.div`
         @media(max-width:900px) {
-        visibility: ${props => props.open ? 'visible!important' : 'hidden!important'};
+      
         display: flex;
         position: absolute;
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
         top: 89px;
-        right: 0px;
+        transition: 0.3s ease;
+        right: ${props => props.open ? '0' : '-50vw'};
         width: 50vw;
         height: calc(100vh - 90px);
        background-color: #606d8e;           

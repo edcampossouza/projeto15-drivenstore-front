@@ -20,6 +20,10 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	color: black;
+		&:visited {
+			color: inherit;
+		}
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -53,9 +57,7 @@ table {
 	text-decoration: none;
 	border-style: none;
 	font-family: 'Raleway', sans-serif;
-		&:visited {
-			color: none;
-		}
+		
 }
 #root {
 	position: relative;
@@ -65,9 +67,9 @@ button {
 	cursor: pointer;
 	
 }
-a {
-	:visited {
-		color: black;
+a, h1,h2 {
+	&:visited {
+		color: inherit;
 	}
 }
 `

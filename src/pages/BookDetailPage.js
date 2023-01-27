@@ -13,7 +13,7 @@ import {FiBook} from 'react-icons/fi'
 
 export default function BookDetailPage() {
     const { id } = useParams()
-    const { token, setCartItems, cartItems } = useContext(AppContext)
+    const { token, setCartItems, cartItems, setReload } = useContext(AppContext)
     const [book, setBook] = useState([])
     const [quantity, setQuantity] = useState(1)
     const [isAddingToCart, setIsAddingToCart] = useState(true)
@@ -42,7 +42,8 @@ export default function BookDetailPage() {
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
             .then(res => {
                 setIsAddingToCart(false)
-                setAddedToCard([true, res.data])            
+                setAddedToCard([true, res.data])       
+                setReload([])     
             })
     }
 
@@ -154,8 +155,10 @@ const BookContainer = styled.div`
             }
             @media (max-width: 1050px) {
                flex-direction: column;
-               margin-top: 90px;
-               height: 150vh;
+               height: inherit;
+            
+               //margin-top: 90px;
+               //height: 115vh;
             }
          
    
@@ -202,7 +205,7 @@ const BookImage = styled.div`
             }
             
         }
-        @media (max-width: 800px) {
+        @media (max-width: 1050px) {
             
             margin-bottom: 10px;
               img {
@@ -230,7 +233,7 @@ const BookInfo = styled.div`
             width: 100px;
         }
        
-        @media (max-width: 800px) {
+        @media (max-width: 1050px) {
             margin-left: 0;
             width: 360px;
             margin-top: 20px;
@@ -246,6 +249,7 @@ const FootNotes = styled.div`
     justify-content: space-around!important;
     flex-direction: row!important;
     margin-top: 10px;
+    margin-bottom: 30px;
             div {
                 display: flex;
                 flex-direction: column;
@@ -261,6 +265,9 @@ const FootNotes = styled.div`
                 font-weight: bold;
                 font-size: 14px;
             }
+            @media(max-width: 300px) {
+            
+        }
 `
 
 const FinalButtons = styled.div`

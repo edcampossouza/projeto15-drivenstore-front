@@ -106,7 +106,7 @@ export default function Cart() {
               </CartItems>
             </CartContainer>
             <ButtonsContainer>
-              <Link to={"/"}>
+              <Link to={"/books"}>
                 <ButtonStyle>Continuar comprando</ButtonStyle>
               </Link>
               <Link to={"/orders"}>

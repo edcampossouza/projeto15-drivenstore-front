@@ -115,6 +115,9 @@ const Home = styled.div`
             height: 50px;
             background-color: #A9D9CA;
             box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.3);
+            &:hover {
+                        background-color: #8FB9AC;
+                    }
             @media (max-width:385px) {
                    width:250px ;
                     

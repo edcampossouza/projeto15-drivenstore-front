@@ -7,9 +7,10 @@ const AppProvider = ({children}) => {
     const [userId, setUserId] = useState()
     const [cartItems, setCartItems] = useState([])
     const [orders, setOrders] = useState([])
+    const [reload, setReload] = useState([])
 
     return (
-        <AppContext.Provider value={{token, setToken, user, setUser, userId, setUserId, cartItems, setCartItems, orders, setOrders}}>
+        <AppContext.Provider value={{token, setToken, user, setUser, userId, setUserId, cartItems, setCartItems, orders, setOrders, reload, setReload}}>
             {children}
         </AppContext.Provider>
     )

@@ -9,6 +9,8 @@ import Cart from "./pages/Cart";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
 import HomePage from "./pages/HomePage";
+import NewestBooks from "./pages/NewestBooks";
+import BestSellersPage from "./pages/BestSellersPage";
 
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/books?/newest" element={<NewestBooks />} />
+          <Route path="/books?/best-sellers" element={<BestSellersPage />} />
         </Routes>
 
 
