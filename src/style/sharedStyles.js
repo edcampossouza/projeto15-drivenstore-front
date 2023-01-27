@@ -5,12 +5,13 @@ export const Title = styled.h1`
 `;
 
 export const PageContainer = styled.div`
-  margin-top: 120px;
+  margin-top: 90px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 0px 10px;
+  height: 100vw;
 `;
 
 export const ButtonStyle = styled.button`

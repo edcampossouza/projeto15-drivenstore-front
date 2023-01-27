@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AiFillEye } from "react-icons/ai";
 import AppContext from "../context/AppContext";
 import Header from "../components/Header";
+import { TitleStyle } from "./BooksPage";
 import axios from "axios";
 import {
   PageContainer,
@@ -38,9 +39,7 @@ export default function OrdersPage() {
   return (
     <>
       <Header />
-      <PageContainer>
-        {orders.length === 0 ? <NoOrders /> : <OrdersTable orders={orders} />}
-      </PageContainer>
+      {orders.length === 0 ? <NoOrders /> : <OrdersTable orders={orders} />}
     </>
   );
 }
@@ -48,15 +47,19 @@ export default function OrdersPage() {
 function NoOrders() {
   return (
     <>
-      <Title>Você ainda não tem nenhum pedido!</Title>
-      <ButtonsContainer>
-        <Link to={"/"}>
-          <ButtonStyle>Continuar comprando</ButtonStyle>
-        </Link>
-        <Link to={"/cart"}>
-          <ButtonStyle>Meu Carrinho</ButtonStyle>
-        </Link>
-      </ButtonsContainer>
+      <TitleStyle>
+        <h1>Você ainda não tem nenhum pedido!</h1>
+      </TitleStyle>
+      <PageContainer>
+        <ButtonsContainer>
+          <Link to={"/"}>
+            <ButtonStyle>Continuar comprando</ButtonStyle>
+          </Link>
+          <Link to={"/cart"}>
+            <ButtonStyle>Meu Carrinho</ButtonStyle>
+          </Link>
+        </ButtonsContainer>
+      </PageContainer>
     </>
   );
 }
@@ -65,17 +68,19 @@ function OrdersTable({ orders }) {
   const [selectedOrder, setSelecterOrder] = useState(null);
   return (
     <>
-      <Title>Seus Pedidos</Title>
-      <>
+      <TitleStyle>
+        <h1>Seus Pedidos</h1>
+      </TitleStyle>
+      <PageContainer>
         <OrdersContainer>
-          <thead>
+          <TableTitle>
             <tr>
               <td>Pedido</td>
-              <td>Data/hora</td>
+              <td>Data</td>
               <td>Valor</td>
               <td>Detalhes</td>
             </tr>
-          </thead>
+          </TableTitle>
           <tbody>
             {orders.map((order) => (
               <OrderContainer key={order._id}>
@@ -91,7 +96,7 @@ function OrdersTable({ orders }) {
           </tbody>
         </OrdersContainer>
         {selectedOrder && <OrdersDetail orderID={selectedOrder} />}
-      </>
+      </PageContainer>
     </>
   );
 }
@@ -184,11 +189,6 @@ function OrderNarrow({ order }) {
       <OrderDetails>
         <TableTitle>
           <td></td>
-          {/* <td>Titulo</td>
-          <td>Autor</td>
-          <td>Qtd.</td>
-          <td>Preco Total</td>
-          <td>Tipo</td> */}
           <td>Detalhes</td>
           <td></td>
         </TableTitle>
@@ -268,8 +268,10 @@ const EyeIcon = styled(AiFillEye)`
 `;
 const TableTitle = styled.thead`
   td {
+    font-size: 18px;
     text-align: center;
     font-weight: bold;
+    padding: 5px 10px;
   }
 `;
 const OrderContainer = styled.tr`
@@ -304,6 +306,19 @@ const OrderDetails = styled.table`
     tr:nth-child(odd) {
       background-color: #e0edf4;
     }
+    tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+  }
+  @media (max-width: 715px) {
+    > tbody {
+      tr:nth-child(odd) {
+        background-color: #ffffff;
+      }
+      tr:nth-child(even) {
+        background-color: #ffffff;
+      }
+    }
   }
 `;
 const OrderTitle = styled.h2`
@@ -311,5 +326,5 @@ const OrderTitle = styled.h2`
   font-weight: bold;
   border-bottom: 1px solid black;
   text-align: center;
-  margin: 10px 0px;
+  margin: 20px 0px;
 `;

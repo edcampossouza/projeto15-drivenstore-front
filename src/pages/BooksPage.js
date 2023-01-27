@@ -82,7 +82,7 @@ const BookPageContainer = styled.div`
 
 `
 
-const TitleStyle = styled.div`
+export const TitleStyle = styled.div`
     border-bottom: 1px solid #dfdddd;
     display: flex;
     justify-content: left;

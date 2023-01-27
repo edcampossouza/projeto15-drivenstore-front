@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
+import { TitleStyle } from "./BooksPage";
 import {
-  Title,
   ButtonStyle,
   ButtonsContainer,
   PageContainer,
@@ -122,8 +122,10 @@ export default function CheckoutPage() {
   return (
     <>
       <Header />
+      <TitleStyle>
+        <h1>Checkout</h1>
+      </TitleStyle>
       <PageContainer>
-        <Title>Checkout</Title>
         <StyledSection>
           <h2>Totais</h2>
           <p> Valor total: {formataReais(valor)}</p>

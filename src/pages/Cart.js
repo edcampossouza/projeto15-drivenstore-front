@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
+import { TitleStyle } from "./BooksPage";
+
 import {
-  Title,
   ButtonStyle,
   ButtonsContainer,
   PageContainer,
@@ -45,26 +46,35 @@ export default function Cart() {
   return (
     <>
       <Header />
-      <PageContainer>
-        {loading ? (
+      {cartItems.length === 0 && (
+        <>
+          <TitleStyle>
+            <h1>Seu carrinho está vazio</h1>
+          </TitleStyle>
+          <ButtonsContainer>
+            <Link to={"/"}>
+              <ButtonStyle>Continuar comprando</ButtonStyle>
+            </Link>
+            <Link to={"/orders"}>
+              <ButtonStyle>Meus Pedidos</ButtonStyle>
+            </Link>
+            <Link to={"/checkout"}>
+              <ButtonStyle>Checkout</ButtonStyle>
+            </Link>
+          </ButtonsContainer>
+        </>
+      )}
+
+      {cartItems.length > 0 &&
+        (loading ? (
           "Carregando..."
         ) : (
           <>
-            {cartItems.length < 1 ? (
-              <>
-                <Title>Seu carrinho está vazio</Title>
-                <ButtonsContainer>
-                  <Link to={"/"}>
-                    <ButtonStyle>Continuar comprando</ButtonStyle>
-                  </Link>
-                  <Link to={"/orders"}>
-                    <ButtonStyle>Meus Pedidos</ButtonStyle>
-                  </Link>
-                </ButtonsContainer>
-              </>
-            ) : (
-              <>
-                <Title>Seu carrinho</Title>
+            <>
+              <TitleStyle>
+                <h1>Seu carrinho </h1>
+              </TitleStyle>
+              <PageContainer>
                 <CartContainer>
                   <TableTitle>
                     <td>Capa</td>
@@ -94,15 +104,17 @@ export default function Cart() {
                   <Link to={"/"}>
                     <ButtonStyle>Continuar comprando</ButtonStyle>
                   </Link>
+                  <Link to={"/orders"}>
+                    <ButtonStyle>Meus Pedidos</ButtonStyle>
+                  </Link>
                   <Link to={"/checkout"}>
                     <ButtonStyle>Checkout</ButtonStyle>
                   </Link>
                 </ButtonsContainer>
-              </>
-            )}
+              </PageContainer>
+            </>
           </>
-        )}
-      </PageContainer>
+        ))}
     </>
   );
 }
