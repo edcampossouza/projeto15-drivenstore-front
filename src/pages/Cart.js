@@ -72,39 +72,50 @@ export default function Cart() {
             <h1>Seu carrinho </h1>
           </TitleStyle>
           <PageContainer>
-            <CartContainer>
-              <TableTitle>
-                <tr>
-                  <td>Capa</td>
-                  <td>Titulo</td>
-                  <td>Qtd.</td>
-                  <td>Preço</td>
-                  <td>Total</td>
-                </tr>
-              </TableTitle>
-              <CartItems>
-                {cartItems.map((item) => (
-                  <ItemRow key={item._id}>
-                    <td>
-                      <img src={item.cover} alt={`cover ${item.title}`} />
-                    </td>
-                    <td>
-                      <Link to={`/book-detail/${item.bookID}`}>
-                        {item.title}
-                      </Link>
-                    </td>
-                    <td>{item.quantity}</td>
-                    <td>{formataReais(item.price)}</td>
-                    <td>{formataReais(item.price * item.quantity)}</td>
-                    <td onClick={() => removeLivro(item)}>
-                      <ButtonStyle>
-                        <AiFillDelete />
-                      </ButtonStyle>
-                    </td>
-                  </ItemRow>
-                ))}
-              </CartItems>
-            </CartContainer>
+            <div>
+              <CartContainer>
+                <TableTitle>
+                  <tr>
+                    <td>Capa</td>
+                    <td>Titulo</td>
+                    <td>Qtd.</td>
+                    <td>Preço</td>
+                    <td>Total</td>
+                  </tr>
+                </TableTitle>
+                <CartItems>
+                  {cartItems.map((item) => (
+                    <ItemRow key={item._id}>
+                      <td>
+                        <img src={item.cover} alt={`cover ${item.title}`} />
+                      </td>
+                      <td>
+                        <Link to={`/book-detail/${item.bookID}`}>
+                          {item.title}
+                        </Link>
+                      </td>
+                      <td>{item.quantity}</td>
+                      <td>{formataReais(item.price)}</td>
+                      <td>{formataReais(item.price * item.quantity)}</td>
+                      <td onClick={() => removeLivro(item)}>
+                        <ButtonStyle>
+                          <AiFillDelete />
+                        </ButtonStyle>
+                      </td>
+                    </ItemRow>
+                  ))}
+                </CartItems>
+              </CartContainer>
+              <ItemTotals>
+                Valor Total:{" "}
+                {formataReais(
+                  cartItems.reduce(
+                    (prev, curr) => prev + curr.price * curr.quantity,
+                    0
+                  )
+                )}
+              </ItemTotals>
+            </div>
             <ButtonsContainer>
               <Link to={"/"}>
                 <ButtonStyle>Continuar comprando</ButtonStyle>
@@ -146,4 +157,9 @@ const ItemRow = styled.tr`
     text-align: center;
     padding: 5px;
   }
+`;
+const ItemTotals = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  text-align: end;
 `;
