@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
@@ -57,9 +57,6 @@ export default function Cart() {
             </Link>
             <Link to={"/orders"}>
               <ButtonStyle>Meus Pedidos</ButtonStyle>
-            </Link>
-            <Link to={"/checkout"}>
-              <ButtonStyle>Checkout</ButtonStyle>
             </Link>
           </ButtonsContainer>
         </>
@@ -121,9 +118,18 @@ export default function Cart() {
 
 const TableTitle = styled.thead`
   text-align: center;
+  font-weight: bold;
+  font-size: 18px;
 `;
 const CartContainer = styled.table``;
-const CartItems = styled.tbody``;
+const CartItems = styled.tbody`
+  tr:nth-child(odd) {
+    background-color: #e0edf4;
+  }
+  tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+`;
 const ItemRow = styled.tr`
   img {
     width: 100px;
@@ -131,5 +137,6 @@ const ItemRow = styled.tr`
   td {
     vertical-align: middle;
     text-align: center;
+    padding: 5px;
   }
 `;

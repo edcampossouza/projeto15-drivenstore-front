@@ -7,7 +7,6 @@ import { TitleStyle } from "./BooksPage";
 import axios from "axios";
 import {
   PageContainer,
-  Title,
   ButtonsContainer,
   ButtonStyle,
 } from "../style/sharedStyles";
@@ -35,7 +34,7 @@ export default function OrdersPage() {
       }
     }
     getOrders();
-  }, []);
+  }, [axiosConfig]);
   return (
     <>
       <Header />
