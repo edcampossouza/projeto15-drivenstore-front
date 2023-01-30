@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import Header from "../components/Header";
 import AppContext from "../context/AppContext";
 import { TitleStyle } from "../style/booksPageStyles";
@@ -189,6 +190,7 @@ export default function CheckoutPage() {
           </ButtonStyle>
         </ButtonsContainer>
       </PageContainer>
+      
     </>
   );
 }

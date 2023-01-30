@@ -7,9 +7,11 @@ import Header from "../components/Header"
 import AppContext from "../context/AppContext"
 import { formataReais } from "../util/util"
 import { IoMdGlobe } from 'react-icons/io'
-import {BsCalendar3} from 'react-icons/bs'
-import {RxPerson} from 'react-icons/rx'
-import {FiBook} from 'react-icons/fi'
+import { BsCalendar3 } from 'react-icons/bs'
+import { RxPerson } from 'react-icons/rx'
+import { FiBook } from 'react-icons/fi'
+import { Oval } from "react-loader-spinner"
+
 
 export default function BookDetailPage() {
     const { id } = useParams()
@@ -19,13 +21,14 @@ export default function BookDetailPage() {
     const [quantity, setQuantity] = useState(1)
     const [isAddingToCart, setIsAddingToCart] = useState(true)
     const [addedToCart, setAddedToCard] = useState([false, ""])
-    
+    const [loading, setLoading] = useState(false)
+
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/books/${id}`)
             .then(res => {
-                setBook(res.data)              
-               
+                setBook(res.data)
+
             })
 
     }, [])
@@ -37,8 +40,9 @@ export default function BookDetailPage() {
     }
 
     function addToCart(e) {
+        setLoading(true)
         e.preventDefault()
-        if(token.length <= 0){ 
+        if (token.length <= 0) {
             alert("Você precisa estar logado para adicionar o livro ao carrinho")
             return navigate("/sign-in")
         }
@@ -46,8 +50,9 @@ export default function BookDetailPage() {
         axios.post(`${process.env.REACT_APP_API_URL}/cart`, { bookID: id, quantity }, config)
             .then(res => {
                 setIsAddingToCart(false)
-                setAddedToCard([true, res.data])       
-                setReload([])     
+                setAddedToCard([true, res.data])
+                setReload([])
+                setLoading(false)
             })
     }
 
@@ -74,7 +79,6 @@ export default function BookDetailPage() {
 
                         {addedToCart[0] && <h5>{addedToCart[1]}</h5>}
                         {isAddingToCart ?
-
                             <div>
                                 <span>{formataReais(book.price)}</span>
                                 <AddToCart onSubmit={addToCart}>
@@ -84,21 +88,32 @@ export default function BookDetailPage() {
                                 </AddToCart>
                             </div>
                             :
-                            <FinalButtons>
-                                <Link to="/books">
-                                    <button>Continuar comprando</button>
-                                </Link>
-                                <Link to="/cart">
-                                    <button>Ir para o carrinho</button>
-                                </Link>
-                            </FinalButtons>
+                            !loading ?
+                                <FinalButtons>
+                                    <Link to="/books">
+                                        <button>Continuar comprando</button>
+                                    </Link>
+                                    <Link to="/cart">
+                                        <button>Ir para o carrinho</button>
+                                    </Link>
+                                </FinalButtons>
+                                :
+                                <Oval
+                                    color="#9BA5BE"
+                                    secondaryColor="#9BA5BE"
+                                    height="80"
+                                    width="80"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClassName=""
+                                    visible={true} />
 
                         }
 
                     </div>
                     <FootNotes>
                         <div>
-                        <p>Idioma</p>
+                            <p>Idioma</p>
                             <IoMdGlobe />
                             <span>Português</span>
                         </div>
@@ -106,19 +121,19 @@ export default function BookDetailPage() {
                             <p>Data de publicação</p>
                             <BsCalendar3 />
                             <span>14/03/2022</span>
-                            
+
                         </div>
                         <div>
                             <p>Idade para leitura</p>
                             <RxPerson />
                             <span>14+ anos</span>
-                            
+
                         </div>
                         <div>
                             <p>Editora</p>
                             <FiBook />
                             <span>4Letras</span>
-                            
+
                         </div>
 
                     </FootNotes>
@@ -140,6 +155,7 @@ const BookContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   height: calc(100vh - 90px);
+ 
   width: 100vw;
   background-color: #e9e9e9;
   margin-top: 90px;

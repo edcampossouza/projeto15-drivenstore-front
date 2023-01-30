@@ -13,6 +13,7 @@ import {
   PageContainer,
 } from "../style/sharedStyles";
 import { formataReais } from "../util/util";
+
 export default function Cart() {
   const navigate = useNavigate();
   const { cartItems, setCartItems } = useContext(AppContext);
@@ -131,6 +132,7 @@ export default function Cart() {
           </PageContainer>
         </>
       )}
+    
     </>
   );
 }

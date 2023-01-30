@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import table from '../assets/images/table.png'
+
 import Header from "../components/Header"
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
                 </div>
                 <img src={table} />
             </Home>
+            
         </>
 
     )

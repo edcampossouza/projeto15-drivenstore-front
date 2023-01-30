@@ -8,15 +8,17 @@ export const BookPageContainer = styled.div`
     justify-items: center;
     align-items: center;
     padding-right: 200px;
-    padding-left: 200px;
-        
+    padding-left: 200px;   
+    height: calc(100vh - 360px);
         @media (max-width: 1600px) {
             padding-left: 200px;
             padding-right: 200px;
+            height: inherit;
         }
         @media (max-width: 900px) {
             padding-left: 100px;
             padding-right: 100px;
+            
         }
         @media (max-width: 450px) {
             padding-left: 0px;

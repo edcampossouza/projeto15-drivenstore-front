@@ -13,6 +13,7 @@ import {
 import styled from "styled-components";
 import { formataData, formataReais } from "../util/util";
 
+
 export default function OrdersPage() {
   const { orders, setOrders, token } = useContext(AppContext);
 
@@ -60,6 +61,8 @@ function NoOrders() {
           </Link>
         </ButtonsContainer>
       </PageContainer>
+
+      
     </>
   );
 }
@@ -97,6 +100,7 @@ function OrdersTable({ orders }) {
         </OrdersContainer>
         {selectedOrder && <OrdersDetail orderID={selectedOrder} />}
       </PageContainer>
+     
     </>
   );
 }

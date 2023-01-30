@@ -77,7 +77,7 @@ export default function Header() {
                             setToken([])
                             window.location.reload()
                         }}>
-                            <span><BiLogOut size="1.4em" /></span>
+                            <span>Sair</span>
                         </Link>
                     }
                 </Menu>
